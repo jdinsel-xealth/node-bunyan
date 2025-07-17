@@ -13,6 +13,10 @@ Known issues:
 
 (nothing yet)
 
+## 3.0.0
+
+- Removed any dependency not updated in several years.
+
 ## 2.0.5 (beta)
 
 - [pull #575, #278] Change the default "req" serializer to accept expressjs's

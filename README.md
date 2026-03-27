@@ -1,5 +1,10 @@
 # bunyan
 
+> This is a TypeScript rewrite and feature-reduced fork of the original
+> [node-bunyan](https://github.com/trentm/node-bunyan) by
+> [Trent Mick](https://github.com/trentm). All credit for the library's design,
+> log format, and CLI tool belongs to him. See [Acknowledgments](#acknowledgments).
+
 A minimal, fast JSON logging library for Node.js services, and a `bunyan` CLI
 tool for pretty-printing those logs.
 
@@ -213,6 +218,16 @@ import {
 ## Requirements
 
 - Node.js >= 22.0.0
+
+
+## Acknowledgments
+
+bunyan was created by [Trent Mick](https://github.com/trentm) at Joyent. The
+structured JSON log format, the six-level API, child loggers, and the `bunyan`
+CLI pretty-printer are all his work. This fork strips the library down to a
+console-only TypeScript implementation for environments where simplicity and
+type safety matter more than the full feature set. The original project lives at
+[trentm/node-bunyan](https://github.com/trentm/node-bunyan).
 
 
 ## License

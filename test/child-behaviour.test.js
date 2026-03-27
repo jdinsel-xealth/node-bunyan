@@ -12,8 +12,8 @@ var bunyan = require('../lib/bunyan');
 function CapturingStream(recs) {
     this.recs = recs || [];
 }
-CapturingStream.prototype.write = function (rec) {
-    this.recs.push(rec);
+CapturingStream.prototype.write = function (str) {
+    this.recs.push(JSON.parse(str));
 }
 
 
@@ -23,7 +23,6 @@ test('child can add stream', function (t) {
     var dad = bunyan.createLogger({
         name: 'surname',
         streams: [ {
-            type: 'raw',
             stream: dadStream,
             level: 'info'
         } ]
@@ -33,7 +32,6 @@ test('child can add stream', function (t) {
     var son = dad.child({
         component: 'son',
         streams: [ {
-            type: 'raw',
             stream: sonStream,
             level: 'debug'
         } ]
@@ -60,7 +58,6 @@ test('child can set level of inherited streams', function (t) {
     var dad = bunyan.createLogger({
         name: 'surname',
         streams: [ {
-            type: 'raw',
             stream: dadStream,
             level: 'info'
         } ]
@@ -93,7 +90,6 @@ test('child can set level of inherited streams and add streams', function (t) {
     var dad = bunyan.createLogger({
         name: 'surname',
         streams: [ {
-            type: 'raw',
             stream: dadStream,
             level: 'info'
         } ]
@@ -106,7 +102,6 @@ test('child can set level of inherited streams and add streams', function (t) {
         component: 'son',
         level: 'trace',
         streams: [ {
-            type: 'raw',
             stream: sonStream,
             level: 'debug'
         } ]
@@ -135,7 +130,6 @@ test('child should not lose parent "hostname"', function (t) {
         name: 'hostname-test',
         hostname: 'bar0',
         streams: [ {
-            type: 'raw',
             stream: stream,
             level: 'info'
         } ]

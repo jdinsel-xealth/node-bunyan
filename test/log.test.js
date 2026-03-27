@@ -17,23 +17,19 @@ var bunyan = require('../lib/bunyan');
 
 var log1 = bunyan.createLogger({
     name: 'log1',
-    streams: [
-        {
-            path: __dirname + '/log.test.log1.log',
-            level: 'info'
-        }
-    ]
+    stream: process.stdout,
+    level: 'info'
 });
 
 var log2 = bunyan.createLogger({
     name: 'log2',
     streams: [
         {
-            path: __dirname + '/log.test.log2a.log',
+            stream: process.stdout,
             level: 'error'
         },
         {
-            path: __dirname + '/log.test.log2b.log',
+            stream: process.stdout,
             level: 'debug'
         }
     ]
@@ -63,15 +59,14 @@ test('log.LEVEL() -> boolean', function (t) {
 function Catcher() {
     this.records = [];
 }
-Catcher.prototype.write = function (record) {
-    this.records.push(record);
+Catcher.prototype.write = function (str) {
+    this.records.push(JSON.parse(str));
 }
 var catcher = new Catcher();
 var log3 = new bunyan.createLogger({
     name: 'log3',
     streams: [
         {
-            type: 'raw',
             stream: catcher,
             level: 'trace'
         }

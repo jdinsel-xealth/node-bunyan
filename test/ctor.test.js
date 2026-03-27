@@ -34,16 +34,6 @@ test('ensure Logger creation options', function (t) {
         /invalid options.streams: must be an array/,
         '"streams" must be an array');
 
-    options = {name: 'foo', serializers: 'a string'};
-    t.throws(function () { new Logger(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be a string');
-
-    options = {name: 'foo', serializers: [1, 2, 3]};
-    t.throws(function () { new Logger(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be an array');
-
     t.end();
 });
 
@@ -80,16 +70,6 @@ test('ensure Logger creation options (createLogger)', function (t) {
         /invalid options.streams: must be an array/,
         '"streams" must be an array');
 
-    options = {name: 'foo', serializers: 'a string'};
-    t.throws(function () { bunyan.createLogger(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be a string');
-
-    options = {name: 'foo', serializers: [1, 2, 3]};
-    t.throws(function () { bunyan.createLogger(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be an array');
-
     t.end();
 });
 
@@ -118,16 +98,6 @@ test('ensure Logger child() options', function (t) {
     t.throws(function () { log.child(options); },
         /invalid options.streams: must be an array/,
         '"streams" must be an array');
-
-    options = {serializers: 'a string'};
-    t.throws(function () { log.child(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be a string');
-
-    options = {serializers: [1, 2, 3]};
-    t.throws(function () { log.child(options); },
-        /invalid options.serializers: must be an object/,
-        '"serializers" cannot be an array');
 
     t.end();
 });

@@ -24,8 +24,6 @@ var child_process = require('child_process'),
     execFile = child_process.execFile;
 var assert = require('assert');
 
-var exeunt = require('exeunt');
-
 try {
     var moment = require('moment');
 } catch (e) {
@@ -1485,9 +1483,7 @@ function cleanupAndExit(code, signal) {
         _selfTrace('process.exit(%s)', code);
         process.exit(code);
     } else {
-        // Zero exit: This should be a "normal" exit, for which we want to
-        // flush stdout/stderr.
-        exeunt.softExit(code);
+        process.exit(code);
     }
 }
 

@@ -26,14 +26,8 @@
     "bin",
     "lib"
   ],
-  "// dtrace-provider": "required for dtrace features",
-  "// moment": "required for local time with CLI",
-  "dependencies": {
-    "exeunt": "^1.0.0"
-  },
-   "optionalDependencies": {
-    "dtrace-provider": "~0.8",
-    "safe-json-stringify": "~1",
+  "dependencies": {},
+  "optionalDependencies": {
     "moment": "^2.19.3"
   },
   "devDependencies": {
@@ -43,6 +37,6 @@
   },
   "scripts": {
     "check": "make check",
-    "test": "tap test/*.test.js  # skip dtrace tests"
+    "test": "tap --branches=80 --lines=80 --functions=80 --statements=80 test/*.test.js"
   }
 }

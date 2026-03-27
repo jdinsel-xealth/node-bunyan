@@ -10,7 +10,7 @@ var util = require('util'),
     inspect = util.inspect;
 var test = require('tap').test;
 
-var bunyan = require('../lib/bunyan');
+var bunyan = require('../dist/bunyan');
 
 
 // ---- Tests

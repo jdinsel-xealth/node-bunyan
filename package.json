@@ -3,7 +3,8 @@
   "version": "3.0.0",
   "description": "a JSON logging library for node.js services",
   "author": "Trent Mick <trentm@gmail.com> (http://trentm.com)",
-  "main": "./lib/bunyan.js",
+  "main": "./dist/bunyan.js",
+  "types": "./dist/bunyan.d.ts",
   "bin": {
     "bunyan": "./bin/bunyan"
   },
@@ -11,32 +12,30 @@
     "type": "git",
     "url": "git://github.com/trentm/node-bunyan.git"
   },
-  "engines": [
-    "node >=22.0.0"
-  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "keywords": [
     "log",
     "logging",
-    "log4j",
     "json",
     "bunyan"
   ],
   "license": "MIT",
   "files": [
     "bin",
-    "lib"
+    "dist"
   ],
-  "dependencies": {},
   "optionalDependencies": {
     "moment": "^2.19.3"
   },
   "devDependencies": {
+    "@types/node": "^22.19.15",
     "tap": "^21.6.2",
-    "vasync": "^2.2.1",
-    "verror": "^1.10.1"
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "check": "make check",
-    "test": "tap --branches=80 --lines=80 --functions=80 --statements=80 test/*.test.js"
+    "build": "tsc",
+    "test": "npm run build && tap --branches=80 --lines=80 --functions=80 --statements=80 test/*.test.js"
   }
 }

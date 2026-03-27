@@ -10,7 +10,7 @@ var util = require('util'),
 var test = require('tap').test;
 var p = console.log;
 
-var bunyan = require('../lib/bunyan');
+var bunyan = require('../dist/bunyan');
 
 
 // ---- test boolean `log.<level>()` calls

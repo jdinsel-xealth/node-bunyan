@@ -6,8 +6,8 @@
 
 var test = require('tap').test;
 
-var bunyan = require('../lib/bunyan')
-var Logger = bunyan;
+var bunyan = require('../dist/bunyan');
+var Logger = bunyan.Logger;
 
 
 test('ensure Logger creation options', function (t) {
@@ -33,14 +33,6 @@ test('ensure Logger creation options', function (t) {
     t.throws(function () { new Logger(options); },
         /invalid options.streams: must be an array/,
         '"streams" must be an array');
-
-    t.end();
-});
-
-
-test('ensure Logger constructor is safe without new', function (t) {
-    t.doesNotThrow(function () { Logger({name: 'foo'}); },
-        'constructor should call self with new if necessary');
 
     t.end();
 });

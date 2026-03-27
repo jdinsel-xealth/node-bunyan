@@ -6,7 +6,7 @@
 
 var test = require('tap').test;
 
-var bunyan = require('../lib/bunyan');
+var bunyan = require('../dist/bunyan');
 
 
 test('non-writables passed as stream', function (t) {

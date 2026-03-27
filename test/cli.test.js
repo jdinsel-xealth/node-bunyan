@@ -11,7 +11,6 @@ var os = require('os');
 var path = require('path');
 var _ = require('util').format;
 var test = require('tap').test;
-var vasync = require('vasync');
 
 
 // ---- globals
@@ -485,15 +484,17 @@ test('should not crash on corpus/old-crashers/*.log', function (t) {
     var oldCrashers = fs.readdirSync(
         path.resolve(__dirname, 'corpus/old-crashers'))
         .filter(function (f) { return f.slice(-4) === '.log'; });
-    vasync.forEachPipeline({
-        inputs: oldCrashers,
-        func: function (logName, next) {
+    var promises = oldCrashers.map(function (logName) {
+        return new Promise(function (resolve, reject) {
             exec(_('%s %s/corpus/old-crashers/%s', BUNYAN, __dirname, logName),
-                    function (err, stdout, stderr) {
-                next(err);
+                    function (err) {
+                if (err) reject(err); else resolve();
             });
-        }
-    }, function (err, results) {
+        });
+    });
+    Promise.all(promises).then(function () {
+        t.end();
+    }, function (err) {
         t.error(err);
         t.end();
     });

@@ -6,7 +6,7 @@
 
 var test = require('tap').test;
 
-var bunyan = require('../lib/bunyan');
+var bunyan = require('../dist/bunyan');
 
 
 function CapturingStream(recs) {

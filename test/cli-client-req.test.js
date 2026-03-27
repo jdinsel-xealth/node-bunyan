@@ -38,7 +38,7 @@ test('client_req extra newlines, client_res={} (pull #252)', function (t) {
     ].join('\n') + '\n';
     exec(_('%s %s/corpus/clientreqres.log', BUNYAN, __dirname),
             function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
@@ -49,7 +49,7 @@ test('client_req.address is not used for Host header in 2.x (issue #504)',
         function (t) {
     exec(_('%s %s/corpus/client-req-with-address.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout, [
             // JSSTYLED
             '[2017-05-12T23:59:15.877Z] TRACE: minfo/66266 on sharptooth.local: request sent (client_req.address=127.0.0.1)',

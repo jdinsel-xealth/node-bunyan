@@ -27,10 +27,19 @@
     "lib"
   ],
   "// dtrace-provider": "required for dtrace features",
-  "// mv": "required for RotatingFileStream",
   "// moment": "required for local time with CLI",
+  "dependencies": {
+    "exeunt": "^1.0.0"
+  },
+   "optionalDependencies": {
+    "dtrace-provider": "~0.8",
+    "safe-json-stringify": "~1",
+    "moment": "^2.19.3"
+  },
   "devDependencies": {
-    "tap": "^21.1.0"
+    "tap": "^21.6.2",
+    "vasync": "^2.2.1",
+    "verror": "^1.10.1"
   },
   "scripts": {
     "check": "make check",

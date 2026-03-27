@@ -35,7 +35,7 @@ test('res with "header" string (issue #444)', function (t) {
     ].join('\n') + '\n';
     exec(_('%s %s/corpus/res-header.log', BUNYAN, __dirname),
             function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
@@ -50,7 +50,7 @@ test('res without "header"', function (t) {
     ].join('\n') + '\n';
     exec(_('%s %s/corpus/res-without-header.log', BUNYAN, __dirname),
             function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });

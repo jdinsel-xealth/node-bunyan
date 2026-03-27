@@ -18,7 +18,7 @@ if (nodeVer[0] <= 0 && nodeVer[1] <= 8) {
     test('log with rotating file stream will terminate', function (t) {
         exec('node ' +__dirname + '/process-exit.js', {timeout: 1000},
                 function (err, stdout, stderr) {
-            t.ifError(err);
+            t.error(err);
             t.equal(stdout, 'done\n');
             t.equal(stderr, '');
             t.end();

@@ -44,7 +44,7 @@ function objCopy(from, to) {
 test('--version', function (t) {
     var version = require('../package.json').version;
     exec(BUNYAN + ' --version', function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout, 'bunyan ' + version + '\n');
         t.end();
     });
@@ -52,7 +52,7 @@ test('--version', function (t) {
 
 test('--help', function (t) {
     exec(BUNYAN + ' --help', function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.ok(stdout.indexOf('General options:') !== -1);
         t.end();
     });
@@ -60,7 +60,7 @@ test('--help', function (t) {
 
 test('-h', function (t) {
     exec(BUNYAN + ' -h', function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.ok(stdout.indexOf('General options:') !== -1);
         t.end();
     });
@@ -77,7 +77,7 @@ test('--bogus', function (t) {
 test('simple.log', function (t) {
     exec(_('%s %s/corpus/simple.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout,
             '[2012-02-08T22:56:52.856Z]  INFO: myservice/123 on example.com: '
             + 'My message\n');
@@ -87,7 +87,7 @@ test('simple.log', function (t) {
 test('cat simple.log', function (t) {
     exec(_('cat %s/corpus/simple.log | %s', __dirname, BUNYAN),
         function (err, stdout, stderr) {
-            t.ifError(err)
+            t.error(err)
             t.equal(stdout,
                 /* JSSTYLED */
                 '[2012-02-08T22:56:52.856Z]  INFO: myservice/123 on example.com: My message\n');
@@ -113,7 +113,7 @@ test('time TZ tests', {
     test('time: simple.log local long', function (t) {
         exec(_('%s -o long -L %s/corpus/simple.log', BUNYAN, __dirname),
                 {env: tzEnv}, function (err, stdout, stderr) {
-            t.ifError(err)
+            t.error(err)
             t.equal(stdout,
                 // JSSTYLED
                 '[2012-02-08T12:56:52.856-10:00]  INFO: myservice/123 on example.com: '
@@ -124,7 +124,7 @@ test('time TZ tests', {
     test('time: simple.log utc long', function (t) {
         exec(_('%s -o long --time utc %s/corpus/simple.log', BUNYAN, __dirname),
                 {env: tzEnv}, function (err, stdout, stderr) {
-            t.ifError(err)
+            t.error(err)
             t.equal(stdout,
                 // JSSTYLED
                 '[2012-02-08T22:56:52.856Z]  INFO: myservice/123 on example.com: '
@@ -135,7 +135,7 @@ test('time TZ tests', {
     test('time: simple.log local short', function (t) {
         exec(_('%s -o short -L %s/corpus/simple.log', BUNYAN, __dirname),
                 {env: tzEnv}, function (err, stdout, stderr) {
-            t.ifError(err)
+            t.error(err)
             t.equal(stdout,
                 '12:56:52.856  INFO myservice: '
                 + 'My message\n');
@@ -145,7 +145,7 @@ test('time TZ tests', {
     test('time: simple.log utc short', function (t) {
         exec(_('%s -o short %s/corpus/simple.log', BUNYAN, __dirname),
                 {env: tzEnv}, function (err, stdout, stderr) {
-            t.ifError(err)
+            t.error(err)
             t.equal(stdout,
                 '22:56:52.856Z  INFO myservice: '
                 + 'My message\n');
@@ -159,7 +159,7 @@ test('time TZ tests', {
 test('simple.log with color', function (t) {
     exec(_('%s --color %s/corpus/simple.log', BUNYAN, __dirname),
         function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout,
             /* JSSTYLED */
             '[2012-02-08T22:56:52.856Z] \u001b[36m INFO\u001b[39m: myservice/123 on example.com: \u001b[36mMy message\u001b[39m\n\u001b[0m');
@@ -170,7 +170,7 @@ test('simple.log with color', function (t) {
 test('extrafield.log', function (t) {
     exec(_('%s %s/corpus/extrafield.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout,
             '[2012-02-08T22:56:52.856Z]  INFO: myservice/123 on example.com: '
             + 'My message (extra=field)\n');
@@ -180,7 +180,7 @@ test('extrafield.log', function (t) {
 test('extrafield.log with color', function (t) {
     exec(_('%s --color %s/corpus/extrafield.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout,
             '[2012-02-08T22:56:52.856Z] \u001b[36m INFO\u001b[39m: '
             + 'myservice/123 '
@@ -193,7 +193,7 @@ test('extrafield.log with color', function (t) {
 test('bogus.log', function (t) {
     exec(_('%s %s/corpus/bogus.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout, 'not a JSON line\n{"hi": "there"}\n');
         t.end();
     });
@@ -202,7 +202,7 @@ test('bogus.log', function (t) {
 test('bogus.log -j', function (t) {
     exec(_('%s -j %s/corpus/bogus.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err)
+        t.error(err)
         t.equal(stdout, 'not a JSON line\n{"hi": "there"}\n');
         t.end();
     });
@@ -212,7 +212,7 @@ test('all.log', function (t) {
     exec(_('%s %s/corpus/all.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
         // Just make sure don't blow up on this.
-        t.ifError(err)
+        t.error(err)
         t.end();
     });
 });
@@ -252,7 +252,7 @@ test('multiple logs', function (t) {
     var cmd = _('%s %s/corpus/log1.log %s/corpus/log2.log',
         BUNYAN, __dirname, __dirname);
     exec(cmd, function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, [
             /* BEGIN JSSTYLED */
             '[2012-05-08T16:57:55.586Z]  INFO: agent1/73267 on headnode: message\n',
@@ -274,7 +274,7 @@ test('multiple logs, bunyan format', function (t) {
     var cmd = _('%s -o bunyan %s/corpus/log1.log %s/corpus/log2.log',
         BUNYAN, __dirname, __dirname);
     exec(cmd, function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, [
             /* BEGIN JSSTYLED */
             '{"name":"agent1","pid":73267,"hostname":"headnode","level":30,"msg":"message","time":"2012-05-08T16:57:55.586Z","v":0}',
@@ -296,7 +296,7 @@ test('multiple logs, bunyan format', function (t) {
 test('log1.log.gz', function (t) {
     exec(_('%s %s/corpus/log1.log.gz', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, [
             /* BEGIN JSSTYLED */
             '[2012-05-08T16:57:55.586Z]  INFO: agent1/73267 on headnode: message\n',
@@ -313,7 +313,7 @@ test('mixed text and gzip logs', function (t) {
     var cmd = _('%s %s/corpus/log1.log.gz %s/corpus/log2.log',
         BUNYAN, __dirname, __dirname);
     exec(cmd, function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, [
             /* BEGIN JSSTYLED */
             '[2012-05-08T16:57:55.586Z]  INFO: agent1/73267 on headnode: message\n',
@@ -349,11 +349,11 @@ test('--level 40', function (t) {
     ].join('');
     exec(_('%s -l 40 %s/corpus/all.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         exec(_('%s --level 40 %s/corpus/all.log', BUNYAN, __dirname),
                  function (err, stdout, stderr) {
-            t.ifError(err);
+            t.error(err);
             t.equal(stdout, expect);
             t.end();
         });
@@ -375,13 +375,13 @@ test('--condition "this.level === 10 && this.pid === 123"', function (t) {
     var cmd = _('%s -c "this.level === 10 && this.pid === 123"'
                 + ' %s/corpus/all.log', BUNYAN, __dirname);
     exec(cmd, function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         var cmd = _(
             '%s --condition "this.level === 10 && this.pid === 123"'
             + ' %s/corpus/all.log', BUNYAN, __dirname);
         exec(cmd, function (err, stdout, stderr) {
-            t.ifError(err);
+            t.error(err);
             t.equal(stdout, expect);
             t.end();
         });
@@ -403,7 +403,7 @@ test('--condition "this.level === TRACE', function (t) {
     var cmd = _('%s -c "this.level === TRACE" %s/corpus/all.log',
         BUNYAN, __dirname);
     exec(cmd, function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
@@ -424,7 +424,7 @@ test('multiple --conditions', function (t) {
     ].join('');
     exec(_('%s %s/corpus/all.log -c "this.level === 40" -c "this.pid === 123"',
             BUNYAN, __dirname), function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
@@ -474,7 +474,7 @@ test('robust req handling', function (t) {
     ].join('\n') + '\n';
     exec(_('%s %s/corpus/withreq.log', BUNYAN, __dirname),
              function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
@@ -494,7 +494,7 @@ test('should not crash on corpus/old-crashers/*.log', function (t) {
             });
         }
     }, function (err, results) {
-        t.ifError(err);
+        t.error(err);
         t.end();
     });
 });
@@ -522,7 +522,7 @@ test('should only show nonempty response bodies', function (t) {
     ].join('\n') + '\n';
     exec(_('%s %s/corpus/content-length-0-res.log', BUNYAN, __dirname),
             function (err, stdout, stderr) {
-        t.ifError(err);
+        t.error(err);
         t.equal(stdout, expect);
         t.end();
     });
